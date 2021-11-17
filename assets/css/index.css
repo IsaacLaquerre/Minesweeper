@@ -1,0 +1,124 @@
+:root {
+    --boardSize: 780px;
+    --cells: 8;
+    --cellSize: calc((var(--boardSize) - var(--cells) * 2px) / var(--cells));
+}
+
+body {
+    background-color: rgb(15, 15, 25);
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 15px 0 0;
+    margin: 0;
+    overflow: auto;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.center {
+    text-align: center;
+    margin: auto;
+    align-items: center;
+}
+
+#boardSize {
+    width: 75px;
+    height: 25px;
+    margin-top: 10px;
+}
+
+#gameBoard {
+    display: flex;
+    flex-direction: column;
+    width: var(--boardSize);
+    height: var(--boardSize);
+    border: 1px solid lightgrey;
+    margin-top: 10px;
+    position: relative;
+}
+
+.startMenu {
+    width: var(--boardSize);
+    height: var(--boardSize);
+    background-color: rgba(150, 150, 170, 0.75);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.startMenu .startButton {
+    width: calc(var(--boardSize) / 3);
+    height: calc(var(--boardSize) / 7);
+    background-color: rgb(165, 175, 255, 0.5);
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: ease 0.15s;
+    cursor: pointer;
+}
+
+.startMenu .startButton:hover {
+    background-color: rgba(190, 195, 255, 0.5);
+}
+
+.startMenu .startButton::after {
+    content: 'Start Game';
+    font-size: 2rem;
+    line-height: 350%;
+}
+
+.row {
+    height: calc(var(--cellSize) + 2px);
+    width: calc(var(--cellSize) * var(--cells) + var(--cells) * 2px);
+    list-style-type: none;
+    padding-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin: 0;
+}
+
+.cell {
+    display: inline-block;
+    background-color: rgb(200, 200, 200);
+    border: 1px solid grey;
+    width: var(--cellSize);
+    height: var(--cellSize);
+    vertical-align: middle;
+    cursor: pointer;
+    line-height: calc(600% * 8 / var(--cells));
+}
+
+.cell.bomb {
+    background-image: url("../images/bomb.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: calc(30px * 15 / var(--cells));
+    color: rgba(0, 0, 0, 0);
+}
+
+.cell.hidden {
+    background-color: rgb(180, 180, 180);
+    border: 1px solid grey;
+    text-indent: -100000%;
+    background-position-x: -100000%;
+}
+
+.cell.flagged {
+    background-image: url("../images/flagged.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: calc(40px * 10 / var(--cells));
+    background-position-x: 50%;
+}
+
+.cell.bomb.flagged:not(.hidden) {
+    background-image: url("../images/flagged.png"), url("../images/bomb.png");
+    background-size: calc(25px * 10 / var(--cells)), calc(30px * 15 / var(--cells));
+    background-position-x: 70%, 50%;
+    background-position-y: 35%, 50%;
+}
